@@ -1,26 +1,29 @@
-# Monte Carlo Option Pricing (MATLAB)
-
-This repository contains MATLAB implementations of Monte Carlo option pricing, with a focus on path-dependent derivatives where closed-form solutions are not available.
-
-The code is written to prioritise clarity and intuition rather than optimisation, and follows the logic of the pricing formulas closely.
+# Monte Carlo Option Pricing (MATLAB & Python)
+This repository contains Monte Carlo implementations of option pricing models in MATLAB and Python, written to emphasise clarity, intuition, and verification rather than optimisation.
+The focus is on understanding how Monte Carlo pricing behaves in practice, including benchmarking against analytical results and analysing convergence.
 
 ## What’s implemented
-
-- Floating-strike lookback **call** option pricing using Monte Carlo simulation  
-- Floating-strike lookback **put** option pricing using Monte Carlo simulation  
-- Standard error estimation and confidence intervals  
-- A convergence analysis showing how the Monte Carlo price and standard error change as the number of simulations increases  
+- Floating-strike lookback option pricing using Monte Carlo simulation (MATLAB)  
+- European call option pricing using Monte Carlo simulation (Python)  
+- Black–Scholes closed-form pricing as a benchmark   
+- Standard error estimation and convergence analysis  
 
 ## Method
-
-The underlying asset price is modelled as a geometric Brownian motion. For each simulation, a full price path is generated and the running minimum or maximum is tracked to compute the lookback payoff at maturity. Payoffs are discounted back to present value and averaged to obtain the Monte Carlo price.
+The underlying asset price is modelled as a geometric Brownian motion.
+Path-dependent options are priced by simulating full price paths and tracking path extrema.  
+European options are priced by simulating terminal prices directly.  
+Monte Carlo estimates are compared to analytical benchmarks and their convergence behaviour is examined.
 
 ## Files
-
-- `lookback_call_mc.m` – Monte Carlo pricing of a floating-strike lookback call  
-- `lookback_put_mc.m` – Monte Carlo pricing of a floating-strike lookback put  
-- `lookback_call_convergence.m` – convergence and standard error analysis for the lookback call  
+### MATLAB
+- `lookback_call_mc.m` – floating-strike lookback call pricing  
+- `lookback_put_mc.m` – floating-strike lookback put pricing  
+- `lookback_call_convergence.m` – convergence and standard error analysis  
+### Python
+- `European Call Option Pricing: Monte Carlo Simulation (Black-Scholes Benchmark)` – European call pricing and benchmark comparison  
+- `Mc_convergence_european_call.py` – Monte Carlo convergence analysis  
+## Figures
+- `mc_convergence_european_call.png` – convergence plot showing decay of Monte Carlo pricing error relative to Black–Scholes  
 
 ## Notes
-
-These scripts were written as part of my own learning and exploration of Monte Carlo methods and path-dependent option pricing. They are intended to be easy to read and adapt, rather than maximally efficient.
+These scripts were written as part of my own learning and exploration of Monte Carlo methods and option pricing.
