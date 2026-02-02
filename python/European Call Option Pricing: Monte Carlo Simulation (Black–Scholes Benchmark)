@@ -1,0 +1,32 @@
+import numpy as np
+from scipy.stats import norm
+
+# set model and contract parameters
+S0 = 100
+K = 105
+r = 0.05
+sigma = 0.2
+T = 1
+M = 200000
+
+
+# Monte Carlo pricing
+# draw all standard normal shocks at once
+Z = np.random.randn(M)
+
+# simulate terminal prices under GBM
+ST = S0 * np.exp((r - 0.5*sigma**2)*T + sigma*np.sqrt(T)*Z)
+
+# discounted european call payoffs
+C = np.exp(-r*T) * np.maximum(ST - K, 0)
+
+# Monte Carlo estimate and standard error
+MC_EuropeanCallPrice = np.mean(C)
+SE = np.std(C) / np.sqrt(M)
+
+
+# Black–Scholes closed-form
+d1 = (np.log(S0 / K) + (r + 0.5*sigma**2)*T) / (sigma*np.sqrt(T))
+d2 = d1 - sigma*np.sqrt(T)
+
+BS_EuropeanCallPrice = S0 * norm.cdf(d1) - K * np.exp(-r*T) * norm.cdf(d2)
